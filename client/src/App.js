@@ -16,13 +16,15 @@ function App() {
     try {
       const response = await axios.get("http://localhost:5000/getCurrencyConversion", {
         params: {
-        date,
-        sourceCurrency,
-        targetCurrency,
-        amountInSourceCurrency,
-      },
+          date,
+          sourceCurrency,
+          targetCurrency,
+          amountInSourceCurrency,
+        },
       });  
-      
+      setamountInTargetCurrency(response.data);
+
+      console.log(amountInSourceCurrency,amountInTargetCurrency);
     } 
     catch (error) {
       console.error(error);
@@ -50,7 +52,10 @@ function App() {
         <section>
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor={date} name={date} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+              <label
+                htmlFor={date}
+                name={date}
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
               <input
                 onChange={(e) => Setdate(e.target.value)}
                 type="date"
@@ -104,7 +109,8 @@ function App() {
               <input
                 onChange={(e) => setamountInSourceCurrency(e.target.value)}
                 type="number"
-                id="date"
+                name={amountInSourceCurrency}
+                id={amountInSourceCurrency}
                 aria-describedby="helper-text-explanation"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="amount in source currency"></input>
             </div>
@@ -116,6 +122,7 @@ function App() {
           </form>
         </section>
       </div>
+      {amountInTargetCurrency}
     </div>
   );
 }
